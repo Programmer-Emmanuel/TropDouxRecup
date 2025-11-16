@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Abonnement;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +17,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Ajout d’abonnement
+        $abonnement = new Abonnement();
+        $abonnement->id = Str::uuid();
+        $abonnement->type_abonnement = 'debutant';
+        $abonnement->save();
+        $this->command->info("     - Abonnement par defaut créé");
     }
 }
