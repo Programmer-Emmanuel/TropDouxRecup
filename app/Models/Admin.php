@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use Laravel\Sanctum\HasApiTokens;
 
-class Commune extends Model
+class Admin extends Model
 {
-
-    protected $fillable = [
-        'localite'
-    ];
+    use HasApiTokens, HasFactory, Notifiable;
 
     public $incrementing = false; // empêche l'auto-incrémentation
     protected $keyType = 'string'; // la clé primaire sera une string
@@ -25,4 +25,13 @@ class Commune extends Model
             }
         });
     }
+
+    protected $fillable = [
+        'nom_admin',
+        'email_admin',
+        'tel_admin',
+        'image_admin',
+        'password_admin',
+        'role',
+    ];
 }
