@@ -8,3 +8,7 @@ Route::get('/login', function () {
         'message' => 'Non authentifié, veuillez vous connecter.'
     ],401);
 })->name('login');
+
+Route::get('/', function(){
+    return view('welcome');
+});
