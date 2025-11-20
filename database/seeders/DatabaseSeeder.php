@@ -4,10 +4,11 @@ namespace Database\Seeders;
 
 use App\Models\Abonnement;
 use App\Models\Admin;
+use App\Models\Avantage;
 use App\Models\Commune;
-use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -20,13 +21,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
+        //Ajout avantage
+        $avantage = new Avantage();
+        $avantage->id = Str::uuid();
+        $avantage->nom_avantage = "5 plats par jours.";
+        $avantage->save();
+        $this->command->info("     - Avantage créé");
+
+
         // Ajout d’abonnement
         $abonnement = new Abonnement();
         $abonnement->id = Str::uuid();
         $abonnement->type_abonnement = 'debutant';
+        $abonnement->montant = 0;
+        $abonnement->duree = 'illimité';
         $abonnement->save();
 
         $this->command->info("     - Abonnement par defaut créé");
+
+        //Associé avantage à abonnement
+        // $abonnement->avantages()->attach($avantage->id);
+        // $abonnement->avantages()->sync([$avantage->id]);
+        DB::table('avantage_abonnement')->insert([
+            'id_abonnement' => (string) $abonnement->id,
+            'id_avantage' => (string) $avantage->id,
+        ]);
+        $this->command->info("     - Lié avantage à abonnement.");
 
         //Ajout de communes
         $communes = [

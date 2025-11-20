@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('abonnements', function (Blueprint $table) {
+        Schema::create('avantages', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('type_abonnement');
-            $table->integer('montant');
-            $table->string('duree');
+            $table->string('nom_avantage');
             $table->timestamps();
         });
     }
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('abonnements');
+        Schema::dropIfExists('avantages');
     }
 };
