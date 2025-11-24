@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('abonnements', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('type_abonnement');
+            $table->string('description');
             $table->integer('montant');
             $table->string('duree');
             $table->timestamps();

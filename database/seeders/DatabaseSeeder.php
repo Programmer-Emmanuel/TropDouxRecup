@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
         $abonnement = new Abonnement();
         $abonnement->id = Str::uuid();
         $abonnement->type_abonnement = 'debutant';
+        $abonnement->description = 'La description de l’abonnement';
         $abonnement->montant = 0;
         $abonnement->duree = 'illimité';
         $abonnement->save();

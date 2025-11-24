@@ -23,6 +23,7 @@ class Abonnement extends Model
 
     protected $fillable = [
         'type_abonnement',
+        'description',
         'montant',
         'duree'
     ];

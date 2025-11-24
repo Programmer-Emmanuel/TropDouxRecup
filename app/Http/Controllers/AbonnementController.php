@@ -13,6 +13,7 @@ class AbonnementController extends Controller
     public function ajout_abonnement(Request $request){
         $validator = Validator::make($request->all(),[
             'type_abonnement' => 'required',
+            'description' => 'required',
             'montant' => 'required',
             'duree' => 'required|in:mois,illimite,trimestre,semestre,annee',
             'avantages' => 'required|array',
@@ -29,6 +30,7 @@ class AbonnementController extends Controller
         try{
             $abonnement = new Abonnement();
             $abonnement->type_abonnement = $request->type_abonnement;
+            $abonnement->description = $request->description;
             $abonnement->montant = $request->montant;
             $abonnement->duree = $request->duree;
             $abonnement->save();
@@ -44,6 +46,7 @@ class AbonnementController extends Controller
                     'abonnement' => [
                         'id' => $abonnement->id,
                         'type_abonnement' => $abonnement->type_abonnement,
+                        'description' => $abonnement->description,
                         'montant' => $abonnement->montant,
                         'duree' => $abonnement->duree
                     ],
@@ -63,7 +66,7 @@ class AbonnementController extends Controller
 
     public function liste_abonnement(){
         try{
-            $abonnement = Abonnement::select('id', 'type_abonnement', 'montant', 'duree')->with(['avantages:id,nom_avantage'])->get();
+            $abonnement = Abonnement::select('id', 'type_abonnement', 'description', 'montant', 'duree')->with(['avantages:id,nom_avantage'])->get();
             $abonnement->each(function ($a) {
                 $a->avantages->makeHidden('pivot');
             });
@@ -87,6 +90,7 @@ class AbonnementController extends Controller
     public function update_abonnement(Request $request, $id){
         $validator = Validator::make($request->all(),[
             'type_abonnement' => 'required',
+            'description' => 'required',
             'montant' => 'required',
             'duree' => 'required|in:mois,illimite,trimestre,semestre,annee',
             'avantages' => 'required|array',
@@ -109,6 +113,7 @@ class AbonnementController extends Controller
                 ],404);
             }
             $abonnement->type_abonnement = $request->type_abonnement;
+            $abonnement->description = $request->description;
             $abonnement->montant = $request->montant;
             $abonnement->duree = $request->duree;
             $abonnement->save();
@@ -124,6 +129,7 @@ class AbonnementController extends Controller
                     'abonnement' => [
                         'id' => $abonnement->id,
                         'type_abonnement' => $abonnement->type_abonnement,
+                        'description' => $abonnement->description,
                         'montant' => $abonnement->montant,
                         'duree' => $abonnement->duree
                     ],
