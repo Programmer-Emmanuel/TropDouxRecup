@@ -125,9 +125,12 @@ class PlatController extends Controller
 
             if ($statut === 'actif') {
                 $query->where('is_active', true);
-            } elseif ($statut === 'epuise') {
+            } elseif ($statut === 'inactif') {
                 $query->where('is_active', false);
+            } elseif ($statut === 'epuise') {
+                $query->where('is_finish', true);
             }
+
 
             $plats = $query->get();
 
@@ -153,7 +156,7 @@ class PlatController extends Controller
                     'prix_origine' => $plat->prix_origine,
                     'prix_reduit' => $plat->prix_reduit,
                     'quantite_plat' => $plat->quantite_plat,
-                    'statut' => $plat->is_active ? 'actif' : 'epuise',
+                    'statut' => $plat->is_finish ? 'epuise' : ($plat->is_active ? 'actif' : 'inactif'),
                     'reduction' => "-" . round($reduction, 2) . "%",
                     'marchand' => $user->nom_marchand
                 ];
