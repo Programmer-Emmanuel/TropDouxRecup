@@ -6,6 +6,7 @@ use App\Http\Controllers\AvantageController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\LocaliteController;
 use App\Http\Controllers\MarchandController;
+use App\Http\Controllers\PanierController;
 use App\Http\Controllers\PlatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -97,3 +98,10 @@ Route::middleware('auth:admin')->group(function(){
 Route::get('/localites', [LocaliteController::class, 'localites']);
 //Afficher une localite
 Route::get('/localite/{id}', [LocaliteController::class, 'localite']);
+
+//Panier
+Route::middleware('auth:client')->group(function(){
+    Route::post('/ajout/panier', [PanierController::class, 'ajout_panier']);
+    Route::get('/panier', [PanierController::class, 'panier']);
+    Route::post('/delete/plat/panier/{id_item}', [PanierController::class, 'delete_plat']);
+});
