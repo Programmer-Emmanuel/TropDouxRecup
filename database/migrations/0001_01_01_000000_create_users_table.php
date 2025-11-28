@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('tel_client')->unique();
             $table->string('image_client')->nullable();
             $table->string('password_client');
+            $table->string('device_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
