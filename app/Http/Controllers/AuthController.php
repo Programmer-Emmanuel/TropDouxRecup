@@ -27,6 +27,7 @@ class AuthController extends Controller
             'email' => 'required|email',
             'telephone' => 'required|digits:10',
             'password' => 'required|min:4',
+            'id_localite' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -66,6 +67,7 @@ class AuthController extends Controller
                         'nom_marchand' => $request->nom,
                         'email_marchand' => $request->email,
                         'tel_marchand' => $request->telephone,
+                        'id_commune' => $request->id_localite,
                         'password_marchand' => Hash::make($request->password),
                         'code_otp' => $code_otp,
                         'otp_expire_at' => now()->addMinutes(10),
@@ -193,6 +195,7 @@ class AuthController extends Controller
                         'nom_marchand' => $marchand->nom_marchand,
                         'email_marchand' => $marchand->email_marchand,
                         'tel_marchand' => $marchand->tel_marchand,
+                        'localite' => $marchand->commune->localite,
                         'type_abonnement' => $abonnement->type_abonnement,
                         'token' => $token
                     ],
@@ -289,6 +292,7 @@ class AuthController extends Controller
                         'nom' => $marchand->nom_marchand,
                         'email' => $marchand->email_marchand,
                         'telephone' => $marchand->tel_marchand,
+                        'localite' => $marchand->commune->localite,
                         'role' => 'marchand',
                         'type_abonnement' => $marchand->abonnement->type_abonnement,
                         'token' => $token

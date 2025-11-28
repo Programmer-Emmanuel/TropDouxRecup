@@ -3,6 +3,10 @@
 use App\Http\Controllers\AbonnementController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvantageController;
+use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\LocaliteController;
+use App\Http\Controllers\MarchandController;
+use App\Http\Controllers\PlatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -56,3 +60,40 @@ Route::middleware('auth:admin')->group(function(){
 });
 //Liste des abonnements
 Route::get('/abonnements', [AbonnementController::class, 'liste_abonnement']);
+
+//Categorie
+Route::middleware('auth:admin')->group(function(){
+    Route::post('/ajout/categorie', [CategorieController::class, 'ajout_categorie']);
+    Route::post('/update/categorie/{id}', [CategorieController::class, 'update_categorie']);
+    Route::post('/delete/categorie/{id}', [CategorieController::class, 'delete_categorie']);
+});
+//Liste des categories
+Route::get('/categories', [CategorieController::class, 'liste_categorie']);
+Route::get('/categorie/{id}', [CategorieController::class, 'categorie']);
+
+//Plat
+Route::middleware('auth:marchand')->group(function(){
+    Route::post('/ajout/plat', [PlatController::class, 'ajout_plat']);
+    Route::get('/plat/marchand', [PlatController::class, 'plat_marchand']);
+    Route::post('/delete/plat/{id}', [PlatController::class, 'delete_plat']);
+    Route::post('/update/plat/{id}', [PlatController::class, 'update_plat']);
+});
+//Liste des plats
+Route::get('/plats', [PlatController::class, 'plats']);
+
+//Afficher un plat
+Route::get('/plat/{id}', [PlatController::class, 'plat']);
+
+//Afficher un marchand
+Route::get('/marchand/{id}', [MarchandController::class, 'marchand']);
+
+//Localite
+Route::middleware('auth:admin')->group(function(){
+    Route::post('/ajout/localite', [LocaliteController::class, 'ajout_localite']);
+    Route::post('/update/localite/{id}', [LocaliteController::class, 'update_localite']);
+    Route::post('/delete/localite/{id}', [LocaliteController::class, 'delete_localite']);
+});
+// Liste des localites
+Route::get('/localites', [LocaliteController::class, 'localites']);
+//Afficher une localite
+Route::get('/localite/{id}', [LocaliteController::class, 'localite']);
