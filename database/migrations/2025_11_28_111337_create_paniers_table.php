@@ -14,9 +14,6 @@ return new class extends Migration
         Schema::create('paniers', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->integer('quantite');
-            // $table->integer('total_plats');
-            // $table->integer('economie');
-            // $table->integer('total');
 
             $table->uuid('id_plat');
 
